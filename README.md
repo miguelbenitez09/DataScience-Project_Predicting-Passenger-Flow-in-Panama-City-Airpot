@@ -110,7 +110,8 @@ Debido a que muchas plataformas oficiales carecen de APIs públicas de descarga 
 Para garantizar un modelado sin fuga de información (*zero lookahead bias*), se construyó un espacio vectorial con 34 variables derivadas mediante `src/features/build_features.py`:
 
 1. **Estacionalidad Trigonométrica Continua (Armónicos de Fourier):**
-   $$\text{month\_sin} = \sin\left(\frac{2\pi \cdot m}{12}\right), \quad \text{month\_cos} = \cos\left(\frac{2\pi \cdot m}{12}\right)$$
+   - $\text{Sen}(m) = \sin\left(\frac{2\pi \cdot m}{12}\right)$ (`month_sin`)
+   - $\text{Cos}(m) = \cos\left(\frac{2\pi \cdot m}{12}\right)$ (`month_cos`)
    Capturan la ciclicidad anual de temporadas altas (diciembre/enero, vacaciones escolares) sin introducir discontinuidades artificiales.
 2. **Rezagos Autorregresivos (Lags):**
    Variables desfasadas calculadas estrictamente con desfase temporal:
