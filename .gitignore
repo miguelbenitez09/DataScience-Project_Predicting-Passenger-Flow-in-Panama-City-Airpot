@@ -1,0 +1,32 @@
+# Python runtime
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Environments
+.venv/
+venv/
+env/
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+*-checkpoint.*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Large raw datasets (>100MB exceeds GitHub hard limit)
+data/raw/flights_pty_2021_to_2023.csv
+data/raw/raw_pty_flights_2021_2024.csv
+
+# Keep essential artifacts
+!data/raw/features_description.csv
+!data/raw/trafico_pasajeros_2021_2023.csv
+!data/processed/*.csv
+!models/*.joblib
+!models/*.json
+!models/*.csv
+!reports/figures/*.png

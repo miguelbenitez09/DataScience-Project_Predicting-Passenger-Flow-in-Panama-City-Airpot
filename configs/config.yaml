@@ -1,0 +1,29 @@
+
+seed: 42
+freq: 'MS'
+
+# Objetivos
+targets: [embarcado, desembarcado, transferencia]
+
+# Mapeo de tipos de evento
+map_event_type:
+  arrival: ['Arrival', 'ARR', 'A']
+  departure: ['Departure', 'DEP', 'D']
+
+# Excluir columnas no útiles o con alta fuga
+exclude_features:
+  - ontime_seconds
+  - taxi_seconds
+  - ata_atd_date
+  - sta_std_date
+  - tdt_abt_date
+  - flight_number
+  - aircraft_reg
+  - handler_name
+
+# Lags y medias móviles
+lags: [1, 2, 3, 6, 12]
+moving_averages: [3, 6, 12]
+
+# Validación
+min_train_points: 0

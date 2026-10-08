@@ -1,0 +1,44 @@
+{
+  "seed": 42,
+  "freq": "MS",
+  "targets": [
+    "embarcado",
+    "desembarcado",
+    "transferencia"
+  ],
+  "map_event_type": {
+    "arrival": [
+      "Arrival",
+      "ARR",
+      "A"
+    ],
+    "departure": [
+      "Departure",
+      "DEP",
+      "D"
+    ]
+  },
+  "exclude_features": [
+    "ontime_seconds",
+    "taxi_seconds",
+    "ata_atd_date",
+    "sta_std_date",
+    "tdt_abt_date",
+    "flight_number",
+    "aircraft_reg",
+    "handler_name"
+  ],
+  "lags": [
+    1,
+    2,
+    3,
+    6,
+    12
+  ],
+  "moving_averages": [
+    3,
+    6,
+    12
+  ],
+  "min_train_points": 0
+}

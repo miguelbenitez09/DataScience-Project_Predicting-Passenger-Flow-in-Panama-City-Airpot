@@ -1,0 +1,37 @@
+Feature,Descripcion
+event_date,"Fecha completa, Formato: YYYY-MM-DD"
+event_hour,"Hora del dia, Formato: HH, Ejemplo: '00-23'"
+event_type,Tipo de evento: 'Arrival' para vuelos de llegada o 'Departure' para vuelos de salida.
+site_id,"ID del aeropuerto operado. Ejemplos: ' pty', 'rih', 'dav', 'onx',' blb'"
+airport,"Aeropuerto de destino u origen, esto dependera del feature event_type, ya que si es 'Arrival' airport representará el aeropuerto de origen y si es de tipo 'Departure' entonces representará el aeropuerto de destino"
+terminal_name,Nombre terminal
+gate_id,Puerta id
+stand_position,Posicion donde se estaciona aeronave
+airline_icao_code,Codigo icao de aerolinea
+airline_iata_code,Codigo iata de aerolinea
+flight_number,Numero de vuelo
+handler_name,Nombre del handler
+flight_status_name,Estado del vuelo
+nature_name,Nombre de la naturaleza del vuelo
+flight_service_type_name,Nombre del servicio
+type_of_flight_name,Nombre del tipo del vuelo 
+sta_std_date,"Fecha y hora estimada de arribo o salida, Depende del valor en 'event_type'; Si es 'Arrival' representa fecha y hora de arribo, si es 'Departure' representa la fecha y hora de salida"
+tdt_abt_date,"Fecha hora real de arribo o salida, Depende del valor en 'event_type';  Si es 'Arrival' representa fecha y hora de arribo, si es 'Departure' representa la fecha y hora de salida"
+ata_atd_date,"Fecha hora conexión o desconexion al gate, Depende del valor en 'event_type'; Si es 'Arrival' representa la fecha y hora de conexion al gate y si es 'Departure' representa la fecha y hora de desconexion del gate"
+aircraft_reg,Matricula de la aeronave
+iata_subtype,Clasificacion iata de la aeronave
+aircraft_type_icao_name,tipo de arenave codigo icao nombre
+aircraft_cap,Capacidad del avion
+pax,Pasajeros recibidos en mensajeria
+pax_tax,Pasajeros por archivo csv recibido
+pax_fact,Pasajeros según lectura de boarding pass
+pax_transfer,Pasajeros en transferencia; Un pasajero que hace una parada en el aeropuerto y continúa su viaje en una aeronave distinta
+pax_transit,Pasajeros en transito; Un pasajero que hace una escala en el aeropuerto y continúa su viaje en la misma aeronave
+pax_local,Pasajeros local
+pax_international,Pasajeros internacional
+pax_domestic,Pasajeros domestico
+pax_estimated,Pasajeros estimados
+ontime_seconds,Cantidad de segundos entre fecha hora estimada y fecha hora real.  Ya sea llegada o salida; Depende del 'event_type' : 'Arrival' o 'Departure'
+taxi_seconds,"Tiempo entre que llega y se conecta a gate o Tiempo entre que se desconecta del gate y despega, depende de 'event_type': 'Arrival' o 'Departure'"
+bank,"Banco, se calcula basado en la hora"
+pax_od,Pasajeros que llegan o salen de PTY. Depende de 'event_type': 'Arrival' o 'Departure'

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PTY Passenger Forecast — Demo UI</title>
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--accent:#0ea5a4;--muted:#94a3b8;--glass:rgba(255,255,255,0.03)}
+    html,body{height:100%;}
+    body {
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color:#e6eef8; background:linear-gradient(180deg,#071024 0%, #071a2a 60%);
+      margin:0; padding:28px; display:flex; justify-content:center; align-items:flex-start;
+    }
+    .container{width:100%;max-width:980px}
+    h1{margin:0 0 12px 0;font-weight:600}
+    .card{background:var(--card);border-radius:12px;padding:16px;margin:12px 0;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+    .row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+    button{background:var(--accent);border:none;color:#042022;padding:8px 12px;border-radius:8px;cursor:pointer}
+    button.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+    input[type=number], input[type=text], textarea, select{background:var(--glass);border:1px solid rgba(255,255,255,0.04);padding:8px;border-radius:8px;color:inherit}
+    pre{background:linear-gradient(180deg,#021220,#001018);padding:12px;border-radius:8px;overflow:auto;color:#bfe7e6}
+    label.small{font-size:13px;color:var(--muted);display:block}
+    .controls{display:flex;gap:8px;margin-top:8px}
+    .cols{display:grid;grid-template-columns:1fr 420px;gap:16px}
+    .features-list{max-height:360px;overflow:auto;padding:6px;border-radius:8px;background:rgba(255,255,255,0.02)}
+    .feature-row{display:flex;gap:8px;align-items:center;margin-bottom:6px}
+    .muted{color:var(--muted)}
+    a.logo{color:var(--accent);text-decoration:none}
+  </style>
+</head>
+<body>
+  <h1>PTY Passenger Forecast — Demo UI</h1>
+
+  <section>
+    <h3>Health</h3>
+    <button id="btn-health">Check /health</button>
+    <pre id="out-health"></pre>
+  </section>
+
+  <div class="card cols">
+    <div>
+      <h3>Predict (single row)</h3>
+      <div class="card">
+        <div class="row">
+          <label><input type="checkbox" id="use-last" checked /> use_last_row</label>
+          <button id="btn-predict">POST /predict</button>
+          <button id="btn-toggle-form" class="secondary">Toggle feature form</button>
+        </div>
+
+        <div id="form-area" style="margin-top:12px;display:none">
+          <div class="row">
+            <div style="flex:1">
+              <div class="muted">Features (JSON editor)</div>
+              <textarea id="features-json" rows="10" style="width:100%;font-family:monospace" placeholder='{"feature1": 1.0, "feature2": 2.5}'></textarea>
+              <div class="controls">
+                <input type="file" id="features-file" accept="application/json" />
+                <button id="btn-load-json" class="secondary">Load JSON file</button>
+                <button id="btn-fill-defaults" class="secondary">Fill defaults from model</button>
+              </div>
+            </div>
+            <div>
+              <div class="muted">Or use simple form (first 30 features)</div>
+              <div class="features-list card" id="features-list"></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:12px">
+          <div class="muted">Prediction output</div>
+          <pre id="out-predict">(no output yet)</pre>
+        </div>
+      </div>
+
+      <h3 style="margin-top:12px">Predict Horizon</h3>
+      <div class="card">
+        <div class="row">
+          <label>Horizon: <input type="number" id="horizon" value="3" min="1" max="24" style="width:72px"/></label>
+          <label><input type="checkbox" id="hold-exog" checked /> hold_exog</label>
+          <button id="btn-ph">POST /predict_horizon</button>
+        </div>
+        <div style="margin-top:12px"><pre id="out-ph">(no output yet)</pre></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card">
+        <h3>Server info</h3>
+        <div class="muted">Health</div>
+        <pre id="out-health">(not called)</pre>
+      </div>
+      <div class="card">
+        <h3>Tips</h3>
+        <ul class="muted">
+          <li>Use <b>use_last_row</b> to use the latest row from the modeling dataset (if present).</li>
+          <li>Upload a JSON file with a single object mapping feature name -> numeric value.</li>
+          <li>Or paste JSON into the editor, or use the form to fill values.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
