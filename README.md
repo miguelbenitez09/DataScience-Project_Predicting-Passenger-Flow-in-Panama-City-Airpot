@@ -18,17 +18,18 @@
 
 ## 📑 Tabla de Contenidos
 1. [Descripción del Proyecto y Problema Operativo](#1-descripción-del-proyecto-y-problema-operativo)
-2. [Arquitectura del Pipeline y Flujo de Datos](#2-arquitectura-del-pipeline-y-flujo-de-datos)
-3. [Ingeniería de Características (Feature Engineering)](#3-ingeniería-de-características-feature-engineering)
-4. [Benchmarking Multi-Algoritmo y Resultados Empíricos](#4-benchmarking-multi-algoritmo-y-resultados-empíricos)
-5. [Visualizaciones y Evaluación de Modelos](#5-visualizaciones-y-evaluación-de-modelos)
-6. [Tecnologías y Versiones Utilizadas](#6-tecnologías-y-versiones-utilizadas)
-7. [Por Qué se Seleccionó Cada Herramienta](#7-por-qué-se-seleccionó-cada-herramienta)
-8. [Estructura del Repositorio](#8-estructura-del-repositorio)
-9. [Instalación, Entrenamiento y Ejecución de la API](#9-instalación-entrenamiento-y-ejecución-de-la-api)
-10. [Contratos de API REST y Ejemplos de Invocación](#10-contratos-de-api-rest-y-ejemplos-de-invocación)
-11. [Contenedorización con Docker](#11-contenedorización-con-docker)
-12. [Citación Académica y Atribución](#12-citación-académica-y-atribución)
+2. [Marco Legal (Ley 6 de 2002), Adquisición Ética y Protección de la Infraestructura Pública](#2-marco-legal-ley-6-de-2002-adquisición-ética-y-protección-de-la-infraestructura-pública)
+3. [Arquitectura del Pipeline y Flujo de Datos](#3-arquitectura-del-pipeline-y-flujo-de-datos)
+4. [Ingeniería de Características (Feature Engineering)](#4-ingeniería-de-características-feature-engineering)
+5. [Benchmarking Multi-Algoritmo y Resultados Empíricos](#5-benchmarking-multi-algoritmo-y-resultados-empíricos)
+6. [Visualizaciones y Evaluación de Modelos](#6-visualizaciones-y-evaluación-de-modelos)
+7. [Tecnologías y Versiones Utilizadas](#7-tecnologías-y-versiones-utilizadas)
+8. [Por Qué se Seleccionó Cada Herramienta](#8-por-qué-se-seleccionó-cada-herramienta)
+9. [Estructura del Repositorio](#9-estructura-del-repositorio)
+10. [Instalación, Entrenamiento y Ejecución de la API](#10-instalación-entrenamiento-y-ejecución-de-la-api)
+11. [Contratos de API REST y Ejemplos de Invocación](#11-contratos-de-api-rest-y-ejemplos-de-invocación)
+12. [Contenedorización con Docker](#12-contenedorización-con-docker)
+13. [Citación Académica y Atribución](#13-citación-académica-y-atribución)
 
 ---
 
@@ -46,7 +47,21 @@ Este sistema implementa un **pipeline end-to-end de MLOps** que procesa más de 
 
 ---
 
-## 2. Arquitectura del Pipeline y Flujo de Datos
+## 2. Marco Legal (Ley 6 de 2002), Adquisición Ética y Protección de la Infraestructura Pública
+
+### A. Fundamento Legal Soberano (Ley 6 de 22 de enero de 2002)
+Este proyecto se sustenta en la **Ley 6 de 22 de enero de 2002 de la República de Panamá**, que dicta normas para la transparencia en la gestión pública y consagra el derecho de toda persona natural o jurídica al libre acceso a la información pública y datos abiertos. El procesamiento de estadísticas y microdatos aeroportuarios persigue fines estrictamente **educativos, de investigación científica y de empoderamiento cívico**.
+
+### B. Protocolo de Adquisición Ética y Simulación de Comportamiento Humano
+Debido a que muchas plataformas oficiales carecen de APIs públicas de descarga masiva para los usuarios, implementé un método automatizado en Python (`src/data/acquire_public_flight_data.py`) concebido específicamente para ejercer este derecho ciudadano protegiendo activamente la infraestructura del Estado:
+1. **Simulación de Comportamiento Humano (Jitter de Cortesía):** El proceso incorpora pausas aleatorias de cortesía (2.0 a 5.0 segundos) entre peticiones, reproduciendo exactamente los tiempos de interacción de un operador humano.
+2. **Salvaguarda Anti-DDoS / Rate Limiting:** Se descarta el paralelismo agresivo para garantizar una huella de red casi nula, evitando cualquier degradación en los servidores de Tocumen S.A. o de la Autoridad de Aeronáutica Civil (AAC).
+3. **Disyuntor Automático (Circuit Breaker):** Detección inmediata de códigos de saturación (HTTP 429/503) con suspensión inmediata del proceso y backoff exponencial.
+4. **Higiene del Repositorio (Política Zero Raw Bloat):** Los archivos crudos de vuelos a nivel de evento individual superan los 160 MB. Para evitar sobrecargar el control de versiones y garantizar descargas ágiles, **los datos crudos masivos no se almacenan en el repositorio de Git**. El repositorio incluye las matrices consolidadas y verificadas en `data/processed/modeling_dataset.csv`, permitiendo ejecutar el pipeline completo, entrenar los algoritmos y desplegar el microservicio de forma 100% reproducible y autónoma.
+
+---
+
+## 3. Arquitectura del Pipeline y Flujo de Datos
 
 ```
 ┌─────────────────────────────────┐      ┌──────────────────────────────────┐
@@ -90,7 +105,7 @@ Este sistema implementa un **pipeline end-to-end de MLOps** que procesa más de 
 
 ---
 
-## 3. Ingeniería de Características (Feature Engineering)
+## 4. Ingeniería de Características (Feature Engineering)
 
 Para garantizar un modelado sin fuga de información (*zero lookahead bias*), se construyó un espacio vectorial con 34 variables derivadas mediante `src/features/build_features.py`:
 
@@ -111,7 +126,7 @@ Para garantizar un modelado sin fuga de información (*zero lookahead bias*), se
 
 ---
 
-## 4. Benchmarking Multi-Algoritmo y Resultados Empíricos
+## 5. Benchmarking Multi-Algoritmo y Resultados Empíricos
 
 Se evaluaron 8 familias algorítmicas mediante validación temporal retrospectiva (*Expanding Window Backtesting*). Los resultados empíricos registrados en `models/metrics.csv` son:
 
@@ -136,7 +151,7 @@ Se evaluaron 8 familias algorítmicas mediante validación temporal retrospectiv
 
 ---
 
-## 5. Visualizaciones y Evaluación de Modelos
+## 6. Visualizaciones y Evaluación de Modelos
 
 ### Predicciones vs Valores Reales (Top 3 Modelos)
 
@@ -152,7 +167,7 @@ Se evaluaron 8 familias algorítmicas mediante validación temporal retrospectiv
 
 ---
 
-## 6. Tecnologías y Versiones Utilizadas
+## 7. Tecnologías y Versiones Utilizadas
 
 | Componente | Tecnología | Versión | Rol en la Arquitectura |
 | :--- | :--- | :--- | :--- |
@@ -170,7 +185,7 @@ Se evaluaron 8 familias algorítmicas mediante validación temporal retrospectiv
 
 ---
 
-## 7. Por Qué se Seleccionó Cada Herramienta
+## 8. Por Qué se Seleccionó Cada Herramienta
 
 * **¿Por qué ExtraTrees como Champion?**  
   A diferencia de Random Forest tradicional que busca el umbral de corte óptimo en cada nodo, `ExtraTrees` selecciona umbrales de partición aleatorios. En series temporales de aviación con ruido exógeno (clima, cancelaciones puntuales), este comportamiento reduce significativamente la varianza del estimador y previene el sobreajuste (*overfitting*).
@@ -181,7 +196,7 @@ Se evaluaron 8 familias algorítmicas mediante validación temporal retrospectiv
 
 ---
 
-## 8. Estructura del Repositorio
+## 9. Estructura del Repositorio
 
 ```
 pty_passenger_forecast/
@@ -205,6 +220,7 @@ pty_passenger_forecast/
 │   └── figures/                  # Gráficas generadas automáticamente
 ├── src/
 │   ├── data/
+│   │   ├── acquire_public_flight_data.py # Adquisición ética bajo Ley 6 de 2002
 │   │   └── aggregate_flights.py  # Agregador de vuelos a nivel evento
 │   ├── features/
 │   │   └── build_features.py     # Generador de lags, estacionalidad y YoY
@@ -226,7 +242,7 @@ pty_passenger_forecast/
 
 ---
 
-## 9. Instalación, Entrenamiento y Ejecución de la API
+## 10. Instalación, Entrenamiento y Ejecución de la API
 
 ### Requisitos Previos
 * Python 3.11 o 3.12
@@ -259,7 +275,7 @@ uvicorn src.inference.serve:app --host 0.0.0.0 --port 8000 --reload
 
 ---
 
-## 10. Contratos de API REST y Ejemplos de Invocación
+## 11. Contratos de API REST y Ejemplos de Invocación
 
 ### A. Healthcheck del Servicio
 ```bash
@@ -302,7 +318,7 @@ curl -X POST http://127.0.0.1:8000/predict_horizon \
 
 ---
 
-## 11. Contenedorización con Docker
+## 12. Contenedorización con Docker
 
 El proyecto incluye un `Dockerfile` optimizado:
 
@@ -318,7 +334,7 @@ El servicio estará accesible de inmediato en el puerto `8000`.
 
 ---
 
-## 12. Citación Académica y Atribución
+## 13. Citación Académica y Atribución
 
 Si utilizas este framework, los datos procesados o las arquitecturas de modelado para fines académicos, de investigación o de consultoría, cita el proyecto de la siguiente manera:
 
